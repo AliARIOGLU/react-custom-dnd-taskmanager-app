@@ -3,9 +3,12 @@
 import { useState } from "react";
 import { FaFire } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
+import { useTask } from "../context/TaskContext";
+import { deleteTask } from "../reducer/actions";
 
-export const BurnBarrel = ({ setCards }) => {
+export const BurnBarrel = () => {
   const [active, setActive] = useState(false);
+  const { dispatch } = useTask();
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -19,7 +22,7 @@ export const BurnBarrel = ({ setCards }) => {
   const handleDragEnd = (e) => {
     const cardId = e.dataTransfer.getData("cardId");
 
-    setCards((prevCards) => prevCards.filter((c) => c.id !== cardId));
+    dispatch(deleteTask(cardId));
     setActive(false);
   };
 

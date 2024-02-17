@@ -6,9 +6,12 @@ import classNames from "classnames";
 import { Card } from "./Card";
 import { AddCard } from "./AddCard";
 import { DropIndicator } from "./DropIndicator";
+import { useTask } from "../context/TaskContext";
+import { updateTasks } from "../reducer/actions";
 
-export const Column = ({ title, headingColor, column, cards, setCards }) => {
+export const Column = ({ title, headingColor, column }) => {
   const [active, setActive] = useState(false);
+  const { tasks, dispatch } = useTask();
 
   const handleDragStart = (e, card) => {
     e.dataTransfer.setData("cardId", card.id);
@@ -80,7 +83,7 @@ export const Column = ({ title, headingColor, column, cards, setCards }) => {
     const before = element.dataset.before || "-1";
 
     if (before !== cardId) {
-      let copy = [...cards];
+      let copy = [...tasks];
 
       let cardToTransfer = copy.find((c) => c.id === cardId);
 
@@ -101,11 +104,11 @@ export const Column = ({ title, headingColor, column, cards, setCards }) => {
         copy.splice(insertAtIndex, 0, cardToTransfer);
       }
 
-      setCards(copy);
+      dispatch(updateTasks(copy));
     }
   };
 
-  const filteredCards = cards.filter((c) => c.column === column);
+  const filteredCards = tasks.filter((c) => c.column === column);
 
   return (
     <div className="w-56 shrink-0">
@@ -136,7 +139,7 @@ export const Column = ({ title, headingColor, column, cards, setCards }) => {
           <Card key={card.id} {...card} handleDragStart={handleDragStart} />
         ))}
         <DropIndicator beforeId="-1" column={column} />
-        <AddCard column={column} setCards={setCards} />
+        <AddCard column={column} />
       </div>
     </div>
   );

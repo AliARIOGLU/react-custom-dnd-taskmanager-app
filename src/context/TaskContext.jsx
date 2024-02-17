@@ -1,13 +1,6 @@
 /* eslint-disable */
 
-import {
-  createContext,
-  useContext,
-  useReducer,
-  useState,
-  useEffect,
-} from "react";
-import { DEFAULT_CARDS } from "../constants/cards-data";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import { taskReducer } from "../reducer/taskReducer";
 
 const TaskContext = createContext();

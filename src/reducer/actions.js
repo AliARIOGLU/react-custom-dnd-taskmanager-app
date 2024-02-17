@@ -8,10 +8,10 @@ export const addTask = (task) => {
   };
 };
 
-export const updateTask = (task) => {
+export const updateTasks = (newTasks) => {
   return {
-    type: TASK_ACTION.UPDATE_TASK,
-    payload: task,
+    type: TASK_ACTION.UPDATE_TASKS,
+    payload: newTasks,
   };
 };
 
@@ -19,5 +19,12 @@ export const deleteTask = (id) => {
   return {
     type: TASK_ACTION.DELETE_TASK,
     id,
+  };
+};
+
+export const editTask = (newTask) => {
+  return {
+    type: TASK_ACTION.EDIT_TASK,
+    payload: newTask,
   };
 };

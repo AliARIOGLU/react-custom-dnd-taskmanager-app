@@ -7,14 +7,17 @@ export const taskReducer = (tasks, action) => {
     case TASK_ACTION.ADD_TASK: {
       return [...tasks, action.payload];
     }
-    case TASK_ACTION.UPDATE_TASK: {
+    case TASK_ACTION.UPDATE_TASKS: {
+      return action.payload;
+    }
+    case TASK_ACTION.DELETE_TASK: {
+      return tasks.filter((task) => task.id !== action.id);
+    }
+    case TASK_ACTION.EDIT_TASK: {
       const { id } = action.payload;
       return tasks.map((task) =>
         task.id === id ? { ...action.payload } : task
       );
-    }
-    case TASK_ACTION.DELETE_TASK: {
-      return tasks.filter((task) => task.id !== action.id);
     }
     default:
       return tasks;

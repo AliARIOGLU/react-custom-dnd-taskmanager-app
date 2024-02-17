@@ -3,10 +3,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiPlus } from "react-icons/fi";
+import { useTask } from "../context/TaskContext";
+import { addTask } from "../reducer/actions";
 
-export const AddCard = ({ column, setCards }) => {
+export const AddCard = ({ column }) => {
   const [text, setText] = useState("");
   const [adding, setAdding] = useState(false);
+
+  const { dispatch } = useTask();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +23,7 @@ export const AddCard = ({ column, setCards }) => {
       column,
     };
 
-    setCards((prevCards) => [...prevCards, newCard]);
+    dispatch(addTask(newCard));
 
     setAdding(false);
   };
